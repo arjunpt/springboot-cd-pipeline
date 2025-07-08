@@ -18,7 +18,7 @@ pipeline {
         stage('Update Deployment File') {
             steps {
                 dir("./${params.environment}") {
-                    sh "sed -i 's|image: arjunpt.*|image: arjunpt/democicd:${params.IMAGETAG}|' deployment.yml"
+                    sh "sed -i 's|image: arjunpt.*|image: arjunpt/democicd:${params.IMAGETAG}|' deployment.yaml"
                 }
             }
         }

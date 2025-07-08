@@ -12,10 +12,10 @@ spec:
   template:
     metadata:
       labels:
-        app:arjunptdemo
+        app: arjunptdemo  
     spec:
       containers:
-      - name: arjunptdemo
-        image: arjunpt/democicd:dev-2.12
-        ports:
-        - containerPort: 8080
+        - name: arjunptdemo
+          image: arjunpt/democicd:dev-2.12
+          ports:
+            - containerPort: 8080

@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'demo' }
+    agent { label 'build' }
 
     parameters {
         string(name: 'IMAGETAG', defaultValue: '1.0', description: 'Enter the image tag to deploy')

@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: wezvatechdemo
-        image: arjunpt/democicd:1.0
+        image: arjunpt/democicd:dev-2.12
         ports:
         - containerPort: 8080

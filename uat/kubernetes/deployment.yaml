@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: wezvatechdemo
+  name: arjunptdemo
   labels:
-    app: wezvatechdemo
+    app: arjunptdemo
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: wezvatechdemo
+      app: arjunptdemo
   template:
     metadata:
       labels:
-        app: wezvatechdemo
+        app: arjunptdemo
     spec:
       containers:
-      - name: wezvatechdemo
+      - name: arjunptdemo
         image: arjunpt/democicd:1.0
         ports:
         - containerPort: 8080

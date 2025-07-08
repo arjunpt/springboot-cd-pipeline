@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: arjunptdemo
-          image: arjunpt/democicd:dev-2.2
+          image: arjunpt/democicd:dev-4.1
           ports:
             - containerPort: 8080

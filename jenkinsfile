@@ -3,7 +3,7 @@ pipeline {
 
     parameters {
         string(name: 'IMAGETAG', defaultValue: '1.0', description: 'Enter the image tag to deploy')
-        choice(name: 'environment', choices: ['functional', 'integration', 'regression', 'uat', 'release'], description: 'Select environment to deploy')
+        choice(name: 'environment', choices: ['dev', 'functional', 'integration', 'regression', 'uat', 'release'], description: 'Select environment to deploy')
     }
 
     stages {

@@ -1,21 +1,14 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1
+kind: Service
 metadata:
   name: wezvatechdemo
   labels:
     app: wezvatechdemo
 spec:
-  replicas: 2
+  type: NodePort
+  ports:
+  - port: 8080
+    targetPort: 8080
+    nodePort: 31000
   selector:
-    matchLabels:
-      app: wezvatechdemo
-  template:
-    metadata:
-      labels:
-        app: wezvatechdemo
-    spec:
-      containers:
-      - name: wezvatechdemo
-        image: adamtravis/wezvatechbackend:9
-        ports:
-        - containerPort: 8080
+    app: wezvatechdemo

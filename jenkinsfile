@@ -19,7 +19,7 @@
 #}
 
 pipeline {
-  agent { label 'demo' }
+  agent { label 'build' }
   parameters {
     string(name: 'IMAGETAG', defaultValue: '1', description: 'Please Enter the Image Tag to Deploy?')
     choice(name:'environment', choices: ['functional', 'integration', 'regression', 'uat', 'release'], description: 'Select where to deploy')

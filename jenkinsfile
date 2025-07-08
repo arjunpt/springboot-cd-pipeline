@@ -17,7 +17,7 @@ pipeline {
 
         stage('Update Deployment File') {
             steps {
-                dir("./${params.environment}") {
+                dir("./${params.environment}/kubernetes") {
                     sh "sed -i 's|image: arjunpt.*|image: arjunpt/democicd:${params.IMAGETAG}|' deployment.yaml"
                 }
             }

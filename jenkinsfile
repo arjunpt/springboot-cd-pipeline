@@ -1,20 +1,40 @@
 pipeline {
-  agent { label 'build' }
-  parameters {
-    string(name: 'IMAGETAG', defaultValue: '1', description: 'Please Enter the Image Tag to Deploy?')
-    choice(name:'environment', choices: ['functional', 'integration', 'regression', 'uat', 'release'], description: 'Select where to deploy')
-  }
-  stages {
-    stage('Deploy') {
-      steps {
-        git branch: 'main', url: 'https://github.com/arjunpt/springboot-cd-pipeline.git'
-        dir("./${params.environment}") {
-          sh "sed -i 's/image: arjunpt.*/image: arjunpt\\/democicd:$IMAGETAG/g' deployment.yml"
-        }
-        // Only include push if you're pushing back updated YAML to GitHub
-        // Requires GitHub PAT and credentialsId
-      }
-    }
-  }
-}
+    agent { label 'demo' }
 
+    parameters {
+        string(name: 'IMAGETAG', defaultValue: '1.0', description: 'Enter the image tag to deploy')
+        choice(name: 'environment', choices: ['functional', 'integration', 'regression', 'uat', 'release'], description: 'Select environment to deploy')
+    }
+
+    stages {
+        stage('Clone Repository') {
+            steps {
+                withCredentials([string(credentialsId: 'mygithubtoken', variable: 'GITHUB_TOKEN')]) {
+                    git url: "https://${GITHUB_TOKEN}@github.com/arjunpt/springboot-cd-pipeline.git", branch: 'main'
+                }
+            }
+        }
+
+        stage('Update Deployment File') {
+            steps {
+                dir("./${params.environment}") {
+                    sh "sed -i 's|image: arjunpt.*|image: arjunpt/democicd:${params.IMAGETAG}|' deployment.yml"
+                }
+            }
+        }
+
+        stage('Commit and Push') {
+            steps {
+                withCredentials([string(credentialsId: 'mygithubtoken', variable: 'GITHUB_TOKEN')]) {
+                    sh '''
+                        git config user.email "arjunpt2006@gmail.com"
+                        git config user.name "arjunpt"
+                        git add .
+                        git commit -m "Updated deployment image to tag ${IMAGETAG}" || echo "No changes to commit"
+                        git push https://${GITHUB_TOKEN}@github.com/arjunpt/springboot-cd-pipeline.git HEAD:main
+                    '''
+                }
+            }
+        }
+    }
+}
